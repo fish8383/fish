@@ -2,6 +2,10 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"name": "Data_Engine_with_Python",
+			"path": "Data_Engine_with_Python\\Data_Engine_with_Python"
 		}
 	],
 	"settings": {}
