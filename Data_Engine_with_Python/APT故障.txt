@@ -1,0 +1,9 @@
+,Alarm Msg.
+0,Safety Module Passivate
+1,Fire Active
+2,SwDoor Inlet  Left AckReq
+3,Emergency Stop
+4,Estop Outlet Right
+5,General Stop
+6,SwDoor Inlet Right Notclose
+7,SwDoor Outlet  Right Notclose

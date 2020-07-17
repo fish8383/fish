@@ -1,0 +1,26 @@
+,Alarm Msg.
+0,Passed Over Reverse Position Fault
+1,Signal Level Fault
+2,Limit Switch Software Reverse Fault
+3,Main Switch Off Fault
+4,Heartbeat Remote Station Fault
+5,Carrier Position Fault
+6,Position Forward Fault
+7,=L3F16++1G340TC+-BGE102 Gap control 2
+8,Tag Not Present on command trigger
+9,Reading Station Fault
+10,No Skid Number Fault
+11,Command Timeout Fault
+12,"Delete fault, Record Not Exist in local database"
+13,Pressure Monitoring Fault
+14,Rack Fault (OB86)
+15,Slave Fault
+16,Minimum One Device is Passivated
+17,Local Database Fault
+18,Can't initialize (offline of IO error)
+19,Device Not Ready Fault
+20,=L3F18++1E215RB+-BGS1RC Light barrier Fault
+21,Position Reverse Fault
+22,Runtime Fault
+23,Destacker skid counter value fault
+24, 

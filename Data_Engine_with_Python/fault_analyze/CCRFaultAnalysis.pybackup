@@ -1,0 +1,137 @@
+import pandas as pd
+import os
+from datetime import date
+from datetime import time
+from datetime import datetime
+from datetime import timedelta
+from pandas import Series, DataFrame
+import matplotlib
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdate
+from pylab import plot, show
+import numpy as np
+import pygal
+
+###############******数据清理*******#######################
+fileName =input('请输入要打开的表格名称')
+df = pd.read_excel(fileName+'.xlsx')
+#df = pd.read_excel('process.xlsx')
+
+
+################******表格整理******#######################
+
+###1.新增一列PLC名####
+df['AreL']=''
+df['AreR']=''
+df['AreaL']=df['Area']
+df['AreaR']=df['Area']
+df['AreaL']=df['AreaL'].str.split('_',expand=True)
+df['AreaR']=df['AreaR'].str.split('_',expand=True)[3]
+
+
+
+
+####2.
+
+################排列方法1，时间   2，频次###################
+
+#####1，频次#####
+###############*******1.按PLC区域排列***###################
+df_PLC=df.groupby(['AreaL'])['Begin'].agg(['count'])
+df_PLC=df_PLC.sort_values('count',ascending=False)
+df_PLC =df_PLC.head(25)
+###############*******2.按设备类型排列***###################
+df_type=df.groupby(['AreaR'])['Begin'].agg(['count'])
+df_type=df_type.sort_values('count',ascending=False)
+df_type = df_type.head(25)
+###############*******3.按设备标签号排列***###################
+df_device=df.groupby(['Area'])['Begin'].agg(['count'])
+df_device=df_device.sort_values('count',ascending=False)
+df_device =df_device.head(25)
+###############*******4.按故障文本排列***###################
+
+
+df_message=df.groupby(['Alarm Msg.'])['Begin'].agg(['count'])
+df_message=df_message.sort_values('count',ascending=False)
+df_message=df_message.head(25)
+
+
+##########2.时间###########
+def str2sec(x):
+    '''
+    字符串时分秒转换成秒
+    '''
+    h, m, s = x.strip().split(':') #.split()函数将其通过':'分隔开，.strip()函数用来除去空格
+    return int(h)*3600 + int(m)*60 + int(s) #int()函数转换成整数运算
+
+#######################1.按PLC排列#########################
+df['Duration'] = df['Duration'].apply(str2sec)
+df['Duration'] = df['Duration'].map(lambda x:x/60)
+
+df_PLCT=df.groupby(['AreaL'])['Duration'].agg(['sum'])
+
+df_PLCT=df_PLCT.sort_values('sum',ascending=False)
+df_PLCT =df_PLCT.head(25)
+
+###############*******     出图，出表     ***###################
+def histogram(xvalues,yvalues,a,b,C):
+    hist= pygal.Bar()
+    
+    hist._title ='a'+'b'
+    hist._x_title ='a'+'b'
+    hist._y_title='频率'
+    figure = plt.figure(dpi=100,figsize=(1000,600))
+    hist.x_labels = xvalues
+    hist.add(b,yvalues)
+  
+    hist.x_label_rotation = C
+    b=a+b
+    hist.render_to_file(str(b)+'bar.svg')
+
+###############*******1. 折线***###################
+
+###############*******2. 柱状***###################
+xvalues =list(df_PLCT.index)
+yvalues = df_PLCT['sum']
+
+
+histogram(xvalues,yvalues,'故障时长',fileName,90) 
+##
+xvalues =list(df_device.index)
+yvalues = df_device['count']
+
+
+histogram(xvalues,yvalues,'设备元器件故障次数',fileName,90) 
+###
+xvalues =list(df_PLC.index)
+yvalues = df_PLC['count']
+
+
+histogram(xvalues,yvalues,'设备条线故障次数',fileName,90) 
+
+
+##
+xvalues =list(df_message.index)
+yvalues = df_message['count']
+
+
+histogram(xvalues,yvalues,'故障报警分型次数',fileName,90) 
+
+####
+
+xvalues =list(df_type.index)
+yvalues = df_type['count']
+
+
+histogram(xvalues,yvalues,'元器件类型分型故障次数',fileName,90) 
+###############*******3. 散点***###################
+
+
+
+
+
+
+
+
+
+

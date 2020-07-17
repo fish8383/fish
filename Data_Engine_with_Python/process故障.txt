@@ -1,0 +1,25 @@
+,Alarm Msg.
+0,Motion Control Close Fault
+1,Actual Value > Positive Fault Limit
+2,Actual Value < Negative Fault Limit
+3,Position Lost Fault
+4,Flow meter flow rate min. fault
+5,Actual Value > Maximum Charge Fault
+6,Fault upper limite value
+7,Heartbeat Remote Station Fault
+8,Analog Input Fault eg. Broken Wire
+9,Dry Run Alarm
+10,Position Closed Lost Fault
+11,Motion Control Open Fault
+12,Switch-Point A Min Alarm Fault
+13,Spare
+14,Position Opened Lost Fault
+15,No Middle Position Allowed Fault
+16,AHU Time delay Heck-unit ( 0 = Heck off )  fault
+17,Level overfill
+18,Exhaust Min Frequency Fault
+19,Door open
+20,Diagnose Alarm Fault (OB82)
+21,Device ok
+22,Bus Disconnected Fault
+23,Switch-Point O Max Alarm Fault
